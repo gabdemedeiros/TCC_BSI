@@ -52,3 +52,45 @@ Entao('o valor da despesa fixada deve ser maior que o valor da despesa empenhada
   //Compara os valores e valida que fixada é maior que empenhada
   expect(fixada).to.be.greaterThan(empenhada);
 });
+
+//-----------------------------------RECEITAS----------------------------------------------
+
+//Simula comportamento de usuário clicando no botão "TODAS AS CONSULTAS" em Receitas
+Quando('o usuário clica em TODAS AS CONSULTAS sobre receitas', () => {
+  cy.get('[data-block-id="1f9991d"]').click();
+});
+
+//Consulta de dados de receita dentro do iframe
+Quando('o usuário clica em BENEFICIOS FISCAIS', () => {
+
+  //Interceptação pra capturar dados de API
+  cy.intercept('**/doQuery*').as('consultaTabelaBeneficiarios');
+
+  //Clica no botão de "beneficios fiscais"
+  cy.get('[data-block-id="ba22071"]').click();
+
+  //Espera e armazena dados de API
+  cy.wait('@consultaTabelaBeneficiarios').then((interception) => {
+    respostaAPI = interception.response.body;
+  });
+});
+
+//Regra de negócio: Valida que a coluna empresa da tabela não está vazia
+Entao('a tabela de beneficiários deve estar com a coluna "EMPRESA" preenchida', () => {
+
+  //Verifica se a resposta da API foi armazenada 
+  expect(respostaAPI).to.not.be.undefined;
+
+  //Pega os dados da API. 'resulted' tem os valores exibidos no dashboard
+  const dadosTabela = respostaAPI.resultset;
+
+  // percorre todas as linhas (equivalente ao .each)
+  dadosTabela.forEach((linha) => {
+
+    const coluna = linha[3]; // equivalente ao .eq(3)
+
+    expect(coluna).to.not.be.null;
+    expect(String(coluna)).to.not.be.empty;
+  });
+
+});

@@ -1,6 +1,6 @@
 # language: pt
 
-Funcionalidade: Acessibilidade no Portal de Transparência
+Funcionalidade: Aumento, diminuição de texto e consulta sobre despesas
 
   Cenário: Aumento e diminuicao de tamanho da letra e consulta de despesas no Portal de Transparencia
     Dado que o usuário acessa o portal de transparência

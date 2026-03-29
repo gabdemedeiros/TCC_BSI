@@ -3,10 +3,14 @@ const { Given: Dado, When: Quando, Then: Entao } = require("@badeball/cypress-cu
 //Evita que erros da aplicação interrompam a execução dos testes
 Cypress.on('uncaught:exception', () => false);
 
+//--------------------------------COMUM---------------------------------
+
 //Acessa o menu de acessibilidade
 Quando('ele abre o menu de acessibilidade', () => {
   cy.get('.pojo-a11y-toolbar-toggle-link').click();
 });
+
+//---------------------------TAMANHO DE TEXTO---------------------------
 
 //Aumenta tamanho de texto da plataforma
 Quando('clica em AUMENTAR TEXTO', () => {
@@ -59,5 +63,27 @@ Entao('o tamanho da fonte deve ser diminuido', () => {
     const alturaDepoisDiminuir = $el[0].getBoundingClientRect().height;
     //Compara com o elemento antes da diminuição e valida que é menor que o anterior
     expect(alturaDepoisDiminuir).to.be.lessThan(alturaAntesDiminuir);
+  });
+});
+
+//---------------------------ESCALA DE CINZA---------------------------
+
+//Clica no botão "Escala de Cinza"
+Quando('clica em ESCALA DE CINZA', () => {
+
+  //Clica no botão de "aumentar texto"
+  cy.get('.pojo-a11y-btn-grayscale').click();
+
+  //Aguarda a aplicação aplicar escala de cinza na interface
+  cy.wait(800);
+});
+
+Entao('a interface deve estar em escala de cinza', () => {
+  cy.get('body').should(($el) => {
+    //Pega o elemento DOM real, depois de aumentar texto
+    const escalaCinza = $el.css('filter');
+
+    //Compara com o elemento antes do aumento e valida que é maior que o anterior
+    expect(escalaCinza).to.include('grayscale');
   });
 });
