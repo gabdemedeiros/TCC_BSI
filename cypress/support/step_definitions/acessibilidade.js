@@ -1,5 +1,7 @@
 const { Given: Dado, When: Quando, Then: Entao } = require("@badeball/cypress-cucumber-preprocessor");
 
+let estadoInicial = {};
+
 //Evita que erros da aplicação interrompam a execução dos testes
 Cypress.on('uncaught:exception', () => false);
 
@@ -8,6 +10,13 @@ Cypress.on('uncaught:exception', () => false);
 //Acessa o menu de acessibilidade
 Quando('ele abre o menu de acessibilidade', () => {
   cy.get('.pojo-a11y-toolbar-toggle-link').click();
+
+  //Referencia para botão "reiniciar" no menu de acessibilidade
+  cy.get('body').then(($el) => {
+    estadoInicial.classe = $el.attr('class');
+    estadoInicial.altura = $el[0].getBoundingClientRect().height;
+    estadoInicial.filtro = $el.css('filter');
+  });
 });
 
 //---------------------------TAMANHO DE TEXTO---------------------------
@@ -80,10 +89,107 @@ Quando('clica em ESCALA DE CINZA', () => {
 
 Entao('a interface deve estar em escala de cinza', () => {
   cy.get('body').should(($el) => {
-    //Pega o elemento DOM real, depois de aumentar texto
+    //Pega o elemento DOM real, depois de alterar escala para cinza
     const escalaCinza = $el.css('filter');
 
-    //Compara com o elemento antes do aumento e valida que é maior que o anterior
+    //Valida que o filtro mudou para escala de cinza
     expect(escalaCinza).to.include('grayscale');
   });
+
+  //Valida que os elementos svg continuam visíveis
+  cy.get('svg').each(($el) => {
+
+  const fill = $el.css('fill');
+  const opacity = $el.css('opacity');
+
+  //não pode estar totalmente transparente
+  expect(opacity).to.not.equal('0');
+
+  //não pode estar sem cor
+  expect(fill).to.not.equal('none');
+
+  //não pode ser transparente
+  expect(fill).to.not.equal('rgba(0, 0, 0, 0)');
+  })
+});
+
+//---------------------------CONTRASTE NEGATIVO---------------------------
+
+//Clica no botão "Contraste negativo"
+Quando('clica em CONTRASTE NEGATIVO', () => {
+
+  //Clica no botão de "aumentar texto"
+  cy.get('.pojo-a11y-btn-negative-contrast').click();
+
+  //Aguarda a aplicação aplicar contraste negativo na interface
+  cy.wait(800);
+});
+
+Entao('a interface deve estar em contraste negativo', () => {
+
+  //Valida que o contraste ficou negativo
+  cy.get('body').should('have.class', 'pojo-a11y-negative-contrast');
+
+  //Valida que os elementos svg continuam visíveis
+  cy.get('svg').each(($el) => {
+
+    const fill = $el.css('fill');
+    const opacity = $el.css('opacity');
+
+    //não pode estar totalmente transparente
+    expect(opacity).to.not.equal('0');
+
+    //não pode estar sem cor
+    expect(fill).to.not.equal('none');
+
+    //não pode ser transparente
+    expect(fill).to.not.equal('rgba(0, 0, 0, 0)');
+  })
+
+  //Aguarda a aplicação aplicar contraste negativo  na interface
+  cy.wait(4000);
+});
+
+//---------------------------REINICIAR MENU ACESSIBILIDADE---------------------------
+
+Quando('clica em REINICIAR', () => {
+
+  //Clica no botão de "reiniciar"
+  cy.get('.pojo-a11y-btn-reset').click();
+
+  //Aguarda a aplicação aplicar escala de cinza na interface
+  cy.wait(800);
+});
+
+//Valida que os filtros e tamanhos reiniciaram
+Entao('a interface deve voltar ao estado inicial', () => {
+
+  cy.get('body').then(($el) => {
+
+    const classeAtual = $el.attr('class');
+    const alturaAtual = $el[0].getBoundingClientRect().height;
+    const filtroAtual = $el.css('filter');
+
+    //Classe deve voltar ao original
+    expect(classeAtual).to.equal(estadoInicial.classe);
+
+    //Altura deve voltar ao original
+    expect(alturaAtual).to.equal(estadoInicial.altura);
+
+    //Filtro deve voltar ao original
+    expect(filtroAtual).to.equal(estadoInicial.filtro);
+
+  });
+
+});
+
+//---------------------------MAPA DO SITE---------------------------
+
+Quando('clica em MAPA DO SITE', () => {
+
+  //Clica no botão de "mapa do site"
+  cy.get('.pojo-a11y-link-sitemap').click();
+
+  //Aguarda a aplicação aplicar escala de cinza na interface
+  cy.wait(800);
 });
