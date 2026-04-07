@@ -20,7 +20,7 @@ Quando('o usuário clica em DESPESAS GERAIS', () => {
     //Clica no botão de "despesas gerais"
     cy.get('[data-block-id="37c1015"]').click();
 
-  //Espera e armazena dados de API
+    //Espera e armazena dados de API
     cy.wait('@consultaDespesas').then((interception) => {
       respostaAPI = interception.response.body;
     });
@@ -139,5 +139,24 @@ Entao('o gráfico de Maiores Credores em 2026 deve estar em ordem decrescente', 
   //valida se já está ordenado
   expect(valores).to.deep.equal(ordenado);
 
-});//-----------------------------------GESTAO----------------------------------------------
+});
 
+//-------------------------------------DESPESAS MAPA DO SITE--------------------------------------------
+
+Quando('o usuário clica em DESPESAS GERAIS no Mapa do Site', () => {
+
+  cy.intercept('**/doQuery*').as('consultaDespesas');
+
+  //Clica no botão de "Despesas" no mapa do site
+  cy.get('a[href*="despesas-gerais"]')
+    .filter(':visible')
+    .first()
+    .scrollIntoView()
+    .invoke('removeAttr', 'target')
+    .click();
+
+  //Espera e armazena dados de API
+    cy.wait('@consultaDespesas').then((interception) => {
+      respostaAPI = interception.response.body;
+    });
+});

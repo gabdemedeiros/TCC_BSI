@@ -175,6 +175,6 @@ Quando('clica em MAPA DO SITE', () => {
   //Clica no botão de "mapa do site"
   cy.get('.pojo-a11y-link-sitemap').click();
 
-  //Aguarda a aplicação aplicar escala de cinza na interface
+  //Aguarda abrir a tela de "Mapa do Site"
   cy.wait(800);
 });
