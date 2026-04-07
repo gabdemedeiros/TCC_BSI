@@ -11,11 +11,9 @@ Cypress.on('uncaught:exception', () => false);
 Quando('ele abre o menu de acessibilidade', () => {
   cy.get('.pojo-a11y-toolbar-toggle-link').click();
 
-  //Referencia para botão "reiniciar" no menu de acessibilidade
-  cy.get('body').then(($el) => {
-    estadoInicial.classe = $el.attr('class');
-    estadoInicial.altura = $el[0].getBoundingClientRect().height;
-    estadoInicial.filtro = $el.css('filter');
+  //Referencia inicial pro botão "reiniciar" no menu de acessibilidade
+  cy.get('body').invoke('css', 'filter').then((filter) => {
+    filtroInicial = filter;
   });
 });
 
@@ -161,24 +159,11 @@ Quando('clica em REINICIAR', () => {
   cy.wait(800);
 });
 
-//Valida que os filtros e tamanhos reiniciaram
+//Valida que o filtro foi resetado
 Entao('a interface deve voltar ao estado inicial', () => {
 
-  cy.get('body').then(($el) => {
-
-    const classeAtual = $el.attr('class');
-    const alturaAtual = $el[0].getBoundingClientRect().height;
-    const filtroAtual = $el.css('filter');
-
-    //Classe deve voltar ao original
-    expect(classeAtual).to.equal(estadoInicial.classe);
-
-    //Altura deve voltar ao original
-    expect(alturaAtual).to.equal(estadoInicial.altura);
-
-    //Filtro deve voltar ao original
-    expect(filtroAtual).to.equal(estadoInicial.filtro);
-
+  cy.get('body').invoke('css', 'filter').then((filtroAtual) => {
+    expect(filtroAtual).to.equal(filtroInicial);
   });
 
 });

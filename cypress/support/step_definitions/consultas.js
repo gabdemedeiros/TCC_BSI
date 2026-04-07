@@ -94,3 +94,50 @@ Entao('a tabela de beneficiários deve estar com a coluna "EMPRESA" preenchida',
   });
 
 });
+
+//-----------------------------------LICITACOES----------------------------------------------
+
+Quando('o usuário clica em CONSULTA A FORNECEDORES', () => {
+
+  //Interceptação pra capturar dados de API
+  cy.intercept('**/doQuery*').as('consultaCredores');
+
+  //Clica no botão de "bconsulta a fornecedores"
+  cy.get('[data-block-id="f41546e"]').click();
+
+});
+
+Quando('o usuário acessa o gráfico de maiores credores', () => {
+
+  //Espera a API responder
+  cy.wait('@consultaCredores').then((interception) => {
+
+    const body = interception.response.body;
+
+    // 🔹 garante que pegamos a resposta correta
+    if (body && body.resultset) {
+      respostaAPI = body;
+    }
+  });
+
+});
+
+Entao('o gráfico de Maiores Credores em 2026 deve estar em ordem decrescente', () => {
+
+  //Verifica se a resposta da API foi armazenada 
+  expect(respostaAPI).to.not.be.undefined;
+
+  //Pega os dados da API. 'resulted' tem os valores exibidos no dashboard
+  const dadosGrafico = respostaAPI.resultset;
+
+   //extrai apenas os valores (coluna de valor)
+  const valores = dadosGrafico.map(item => Number(item[1]));
+
+  //cria cópia ordenada decrescente
+  const ordenado = [...valores].sort((a, b) => b - a);
+
+  //valida se já está ordenado
+  expect(valores).to.deep.equal(ordenado);
+
+});//-----------------------------------GESTAO----------------------------------------------
+

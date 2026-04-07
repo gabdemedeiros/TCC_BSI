@@ -10,4 +10,7 @@ Funcionalidade: Contraste negativo, aumento de texto, reiniciar menu acessibilid
     Quando clica em AUMENTAR TEXTO
     Então o tamanho da fonte deve ser aumentado
     E clica em REINICIAR
-    # Então a interface deve voltar ao estado inicial
+    Então a interface deve voltar ao estado inicial
+    E o usuário clica em CONSULTA A FORNECEDORES
+    Quando o usuário acessa o gráfico de maiores credores
+    Entao o gráfico de Maiores Credores em 2026 deve estar em ordem decrescente
