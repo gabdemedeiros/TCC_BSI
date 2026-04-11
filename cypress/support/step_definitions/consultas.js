@@ -149,10 +149,10 @@ Quando('o usuário clica em DESPESAS GERAIS no Mapa do Site', () => {
 
   //Clica no botão de "Despesas" no mapa do site
   cy.get('a[href*="despesas-gerais"]')
-    .filter(':visible')
-    .first()
-    .scrollIntoView()
-    .invoke('removeAttr', 'target')
+    .filter(':visible') //Apenas os elementos que estão visíveis na tela
+    .first() // Se houver mais de um, pega o primeiro
+    .scrollIntoView() //Faz o navegador rolar até o elemento
+    .invoke('removeAttr', 'target') //Força abrir na mesma aba
     .click();
 
   //Espera e armazena dados de API
