@@ -1,8 +1,8 @@
 # language: pt
 
-Funcionalidade: Aumento, diminuição de texto e consulta sobre despesas
+Funcionalidade: Validação do menu de acessibilidade no Portal da Transparência PE
 
-  Cenário: Aumento e diminuicao de tamanho da letra e consulta de despesas no Portal de Transparencia
+  Cenário: Validação do menu de acessibilidade no Portal da Transparência PE
     Dado que o usuário acessa o portal de transparência
     Quando ele abre o menu de acessibilidade
     E clica em AUMENTAR TEXTO

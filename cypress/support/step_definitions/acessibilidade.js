@@ -17,6 +17,19 @@ Quando('ele abre o menu de acessibilidade', () => {
   });
 });
 
+//Acessa o menu VLibras
+Quando('ele abre o menu VLibras', () => {
+  cy.intercept('https://vlibras.gov.br/app/vlibras-plugin.js', {
+    statusCode: 200,
+    body: ''
+  })
+
+  cy.get('body')
+    .find('.vw-access-button', { includeShadowDom: true })
+    .should('exist')
+    .click({ force: true })
+});
+
 //---------------------------TAMANHO DE TEXTO---------------------------
 
 //Aumenta tamanho de texto da plataforma

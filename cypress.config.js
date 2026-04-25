@@ -9,6 +9,9 @@ module.exports = defineConfig({
     viewportWidth: 1920,
     viewportHeight: 1080,
 
+    includeShadowDom: true,
+    chromeWebSecurity: false,
+
     async setupNodeEvents(on, config) {
       await addCucumberPreprocessorPlugin(on, config);
 
