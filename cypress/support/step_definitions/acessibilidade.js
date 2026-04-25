@@ -85,7 +85,7 @@ Quando('clica em ESCALA DE CINZA', () => {
   cy.wait(800);
 });
 
-Entao('a interface deve estar em escala de cinza', () => {
+Entao('a interface deve estar em escala de cinza e acessível ao usuário', () => {
   cy.get('body').should(($el) => {
     //Pega o elemento DOM real, depois de alterar escala para cinza
     const escalaCinza = $el.css('filter');
@@ -116,14 +116,14 @@ Entao('a interface deve estar em escala de cinza', () => {
 //Clica no botão "Contraste negativo"
 Quando('clica em CONTRASTE NEGATIVO', () => {
 
-  //Clica no botão de "aumentar texto"
+  //Clica no botão de "contraste negativo"
   cy.get('.pojo-a11y-btn-negative-contrast').click();
 
   //Aguarda a aplicação aplicar contraste negativo na interface
   cy.wait(800);
 });
 
-Entao('a interface deve estar em contraste negativo', () => {
+Entao('a interface deve estar em contraste negativo e acessível ao usuário', () => {
 
   //Valida que o contraste ficou negativo
   cy.get('body').should('have.class', 'pojo-a11y-negative-contrast');
@@ -142,6 +142,18 @@ Entao('a interface deve estar em contraste negativo', () => {
 
     //não pode ser transparente
     expect(fill).to.not.equal('rgba(0, 0, 0, 0)');
+
+    cy.contains('LICITAÇÕES E CONTRATOS')
+      .should('be.visible');
+
+    cy.contains('LICITAÇÕES E ATAS DE REGISTRO DE PREÇO')
+      .should('be.visible');
+
+    cy.contains('CONTRATOS')
+      .should('be.visible');
+
+    cy.contains('FORNECEDORES')
+      .should('be.visible');
   })
 
   //Aguarda a aplicação aplicar contraste negativo  na interface

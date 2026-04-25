@@ -160,3 +160,30 @@ Quando('o usuário clica em DESPESAS GERAIS no Mapa do Site', () => {
       respostaAPI = interception.response.body;
     });
 });
+
+//-------------------------------------PORTAL DA TRANSPARENCIA GERAL--------------------------------------------
+
+//Comportamento de usuário clicando no botão "DESPESAS"
+Quando('o usuário clica em DESPESAS', () => {
+  cy.get('#menu-item-4548 > .gm-dropdown-toggle > .gm-menu-item__txt-wrapper > .gm-menu-item__txt').click()
+});
+
+//Comportamento de usuário clicando no botão "RECEITAS"
+Quando('o usuário clica em RECEITAS', () => {
+  cy.get('#menu-item-4617 > .gm-dropdown-toggle > .gm-menu-item__txt-wrapper > .gm-menu-item__txt').click()
+});
+
+//Comportamento de usuário clicando no botão "RECURSOS HUMANOS"
+Quando('o usuário clica em RECURSOS HUMANOS', () => {
+  cy.get('#menu-item-4621 > .gm-dropdown-toggle > .gm-menu-item__txt-wrapper > .gm-menu-item__txt').click()
+});
+
+//Comportamento de usuário clicando no botão "LICITAÇÕES E CONTRATOS"
+Quando('o usuário clica em LICITACOES E CONTRATOS', () => {
+  cy.get('#menu-item-4672 > .gm-dropdown-toggle > .gm-menu-item__txt-wrapper > .gm-menu-item__txt').click()
+});
+
+//Comportamento de usuário clicando no botão "RESPONSABILIDADE FISCAL"
+Quando('o usuário clica em RESPONSABILIDADE FISCAL', () => {
+  cy.get('#menu-item-4550 > .gm-dropdown-toggle > .gm-menu-item__txt-wrapper > .gm-menu-item__txt').click()
+});
