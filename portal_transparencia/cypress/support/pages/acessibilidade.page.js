@@ -1,6 +1,5 @@
 class AcessibilidadePage {
 
-    //-------------------------------------ACESSIBILIDADE-------------------------------------//
     
     acessaMenuAcessibilidade() {
         cy.get('.pojo-a11y-toolbar-toggle-link').click();
