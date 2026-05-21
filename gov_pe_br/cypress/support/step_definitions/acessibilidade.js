@@ -38,3 +38,7 @@ Entao('a interface deve estar em contraste negativo e acessível ao usuário', (
   acessibilidadePage.verificaContrasteNegativo();
 });
 
+Entao('a interface deve estar com o contraste original', () => {
+  acessibilidadePage.verificaContrasteOriginal();
+});
+
