@@ -58,33 +58,3 @@ Entao('a interface deve estar em contraste negativo e acessível ao usuário', (
   acessibilidadePage.verificaContrasteNegativo();
 });
 
-// //---------------------------REINICIAR MENU ACESSIBILIDADE---------------------------
-
-// Quando('clica em REINICIAR', () => {
-
-//   //Clica no botão de "reiniciar"
-//   cy.get('.pojo-a11y-btn-reset').click();
-
-//   //Aguarda a aplicação aplicar escala de cinza na interface
-//   cy.wait(800);
-// });
-
-// //Valida que o filtro foi resetado
-// Entao('a interface deve voltar ao estado inicial', () => {
-
-//   cy.get('body').invoke('css', 'filter').then((filtroAtual) => {
-//     expect(filtroAtual).to.equal(filtroInicial);
-//   });
-
-// });
-
-// //---------------------------MAPA DO SITE---------------------------
-
-// Quando('clica em MAPA DO SITE', () => {
-
-//   //Clica no botão de "mapa do site"
-//   cy.get('.pojo-a11y-link-sitemap').click();
-
-//   //Aguarda abrir a tela de "Mapa do Site"
-//   cy.wait(800);
-// });
