@@ -1,5 +1,9 @@
 class ConsultasPage {
 
+    acessaPortal() {
+        cy.visit('https://transparencia.pe.gov.br/');
+    }
+
     clicaDespesas() {
         cy.get('#menu-item-4548 > .gm-dropdown-toggle > .gm-menu-item__txt-wrapper > .gm-menu-item__txt').click()
     }

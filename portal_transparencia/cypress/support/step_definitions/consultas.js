@@ -7,6 +7,11 @@ let respostaAPI;
 //Evita que erros da aplicação interrompam a execução dos testes
 Cypress.on('uncaught:exception', () => false);
 
+//Acessa o portal da transparência
+Dado('que o usuário acessa o portal de transparência', () => {
+  consultasPage.acessaPortal();
+});
+
 //-------------------------------------PORTAL DA TRANSPARENCIA GERAL--------------------------------------------//
 
 //Comportamento de usuário clicando no botão "DESPESAS"
