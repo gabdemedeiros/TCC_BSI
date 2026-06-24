@@ -6,6 +6,11 @@ Cypress.on('uncaught:exception', () => false);
 
 //-------------------------------------GOV PE GERAL--------------------------------------------//
 
+//Acessa o portal da transparência
+Dado('que o usuário acessa o portal do Governo de Pernambuco', () => {
+  consultasPage.acessaPortal();
+});
+
 //Comportamento de usuário clicando no botão "SERVIÇOS"
 Quando('o usuário clica em SERVIÇOS', () => {
   consultasPage.clicaServicos();

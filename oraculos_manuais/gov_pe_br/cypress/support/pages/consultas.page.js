@@ -1,5 +1,9 @@
 class ConsultasPage {
 
+    acessaPortal() {
+        cy.visit('https://www.pe.gov.br/');
+    }
+
     clicaServicos() {
         cy.get('a.css-883erp[href="/app/catalog/carta-de-servicos"]').click()
     }
